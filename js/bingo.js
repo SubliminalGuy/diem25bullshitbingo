@@ -1,7 +1,13 @@
 
+
+
 console.clear();
 
+
+
 $(document).ready(function() {
+
+  
 
 /* Slogan Object */
 
@@ -35,8 +41,22 @@ let slogans = {
   27: "It's not a movement, it's a book club.",
   28: "Frankenstein Coalition",
   29: "Post-election Blues",
-  30: "Toxic people"
+  30: "Toxic people",
+  31: "Can you email that to everyone?",
+  32: "You're still sharing your screen",
+  33: "Guys, i have to jump to another call",
+  34: "(Sound of someone typing, possibly with a hammer)",
+  35: "(Loud, painful echo/feedback)",
+  36: "(Child or Animal Noise)",
+  37: "Can you hear me?",
+  38: "I'm sorry, I was on mute",
+  39: "So (cuts out) i can (unintelligible) by (cuts out), ok?",
+  40: "Sorry, i'm late (insert lame excuse)",
+  41: "Can everyone see my screen?",
+  42: "Sorry, i was having connection issues"
+
 };
+
 
 let frenchSlogans = {
   1: "Manque de camaraderie",
@@ -101,9 +121,19 @@ fieldTwelve, fieldThirteen, fieldFourteen, fieldFifteen, fieldSixteen];
 
 
 function random() {
-  let value = Math.floor(Math.random() * 30);
+  let size = Object.keys(slogans).length;
+  
+  let value = Math.floor(Math.random() * size);
 
-  //value = value > 28 ? value - 1 : value + 1;
+  value += 1;
+  
+  return value;
+}
+
+function randomFrench() {
+  let size = Object.keys(frenchSlogans).length;
+  let value = Math.floor(Math.random() * size);
+
   value += 1;
   
   return value;
@@ -130,7 +160,89 @@ function createRandomNumberArray() {
 }
 
 
+function createRandomNumberArrayFrench() {
+  let numberArrayFrench = [];
+  while (new Set(numberArrayFrench).size < 16) {
+    let ranNumberFrench = randomFrench(); 
+    numberArrayFrench.push(ranNumberFrench);
+  }
+  const finalNumberArrayFrench = [... new Set(numberArrayFrench)]
+  return finalNumberArrayFrench;
+}
 
+
+
+
+
+
+
+/* French/English Toggle */
+let headline = document.getElementById("headline");
+let englishToggle = document.getElementById("english");
+let frenchToggle = document.getElementById("francais");
+/*let shuffleButton = document.getElementById("shuffle");*/
+
+
+frenchToggle.addEventListener("click", frenchToggleHandler)
+englishToggle.addEventListener("click", englishToggleHandler)
+shuffle.addEventListener("click", iterateField)
+
+function englishToggleHandler() {
+  location.reload();
+}
+
+
+function frenchToggleHandler() {
+  headline.innerHTML ="Le Bingo DiEM25";
+  shuffle.innerHTML = "Mélanger";
+  
+  shuffle.addEventListener("click", iterateFieldFrench);
+  RandomNumberArrayFrench = createRandomNumberArrayFrench();
+  for (let i=0; i < 16; i++) {
+  field[i].innerHTML = "<p>" + frenchSlogans[RandomNumberArrayFrench[i]] + "</p>";
+}
+
+}
+
+
+// ** Fills every Field with an english quote **
+
+function iterateField() {
+
+  RandomNumberArray = createRandomNumberArray();
+  for (let i=0; i < 16; i++) {
+  field[i].innerHTML = "<p>" + slogans[RandomNumberArray[i]] + "</p>";
+ }
+}
+
+
+// ** Fills every Field with a french quote **
+
+
+function iterateFieldFrench() {
+
+  RandomNumberArrayFrench = createRandomNumberArrayFrench();
+  for (let i=0; i < 16; i++) {
+  field[i].innerHTML = "<p>" + frenchSlogans[RandomNumberArrayFrench[i]] + "</p>";
+ }
+}
+
+/* Reset Fields */
+
+let refresh = document.getElementById("reload");
+
+refresh.addEventListener("click", refreshHandle)
+
+function refreshHandle() {
+  console.log("Yeah");
+  for (let g=0; g <= 15; g++) {
+    field[g].style.background = "rgb(237, 51, 25)";
+    field[g].style.color = "white";
+    field[g].style.borderColor = "white";
+    }
+  }
+ 
+/* End Reset */
 
 
 /* Feld 1 Kontrolle */
@@ -286,74 +398,6 @@ function clickHandle16() {
   fieldSixteen.style.color = "black";
   fieldSixteen.style.borderColor = "black";
   }
-
-/* French/English Toggle */
-let headline = document.getElementById("headline");
-let englishToggle = document.getElementById("english");
-let frenchToggle = document.getElementById("francais");
-/*let shuffleButton = document.getElementById("shuffle");*/
-
-
-frenchToggle.addEventListener("click", frenchToggleHandler)
-englishToggle.addEventListener("click", englishToggleHandler)
-shuffle.addEventListener("click", iterateField)
-
-function englishToggleHandler() {
-  location.reload();
-}
-
-
-function frenchToggleHandler() {
-  headline.innerHTML ="Le Bingo DiEM25";
-  shuffle.innerHTML = "Mélanger";
-  
-  shuffle.addEventListener("click", iterateFieldFrench);
-  RandomNumberArray = createRandomNumberArray();
-  for (let i=0; i < 16; i++) {
-  field[i].innerHTML = "<p>" + frenchSlogans[RandomNumberArray[i]] + "</p>";
-}
-
-}
-
-
-// ** Fills every Field with an english quote **
-
-function iterateField() {
-
-  RandomNumberArray = createRandomNumberArray();
-  for (let i=0; i < 16; i++) {
-  field[i].innerHTML = "<p>" + slogans[RandomNumberArray[i]] + "</p>";
- }
-}
-
-
-// ** Fills every Field with a french quote **
-
-
-function iterateFieldFrench() {
-
-  RandomNumberArray = createRandomNumberArray();
-  for (let i=0; i < 16; i++) {
-  field[i].innerHTML = "<p>" + frenchSlogans[RandomNumberArray[i]] + "</p>";
- }
-}
-
-/* Reset Fields */
-
-let refresh = document.getElementById("reload");
-
-refresh.addEventListener("click", refreshHandle)
-
-function refreshHandle() {
-  console.log("Yeah");
-  for (let g=0; g <= 15; g++) {
-    field[g].style.background = "rgb(237, 51, 25)";
-    field[g].style.color = "white";
-    field[g].style.borderColor = "white";
-    }
-  }
- 
-/* End Reset */
 
 
 
